@@ -1,0 +1,33 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  %a.navbar-brand{href: "#"}
+    Twitter RipOff
+  %button.navbar-toggler{type: "button", 'data-toggle': "collapse", 'data-target': "#navbarSupportedContent", 'aria-controls': "navbarSupportedContent", 'aria-expanded': "false", 'aria-label': "Toggle navigation"}
+    %span.navbar-toggler-icon
+
+  - if user_signed_in?
+    .collapse.navbar-collapse.mr-auto.w-100.order-md-0#navbarSupportedContent
+      %ul.navbar-nav.mr-auto
+        %li.nav-item
+          %a.nav-link{href: posts_path, class: "#{'active' if current_page?(posts_path)}"}
+            All Posts
+        %li.nav-item
+          %a.nav-link{href: my_posts_posts_path, class: "#{'active' if current_page?(my_posts_posts_path)}"}
+            My Posts
+      %ul.navbar-nav.mx-auto
+        %li.nav-item
+          %a.nav-link.mx-auto{:href => new_post_path}
+            %i.fa.fa-plus
+            New Post
+      %ul.navbar-nav.ml-auto
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %strong= current_user.email
+          .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            %a.dropdown-item{href: edit_user_registration_path} Edit Profile
+            .dropdown-divider
+            = link_to "Logout", destroy_user_session_path, method: :delete, class: 'dropdown-item'
+  - else
+    .navbar-collapse.collapse.w-100
+      %ul.navbar-nav.ml-auto
+        %li.nav-item
+          = link_to "Sign up", new_user_registration_path, :class => 'navbar-link'

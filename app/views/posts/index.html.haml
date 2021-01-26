@@ -1,0 +1,27 @@
+#pins.transitions-enabled
+  - @posts.each do |post|
+    .box
+      .panel.panel-default
+        -# = link_to image_tag(pin.image.url), pin
+        %br/
+        .panel-body
+          %blockquote= post.body
+          %br/
+          - if post.media.attached?
+            - content_type = post.media.attachment.content_type
+            - if content_type == "audio/mpeg"
+              %audio#sound_effect.audio_player{:controls => "true", :preload => "true"}
+                %source{:src => rails_blob_path(post.media.attachment), type: content_type}
+          .panel-footer
+            By:
+            %strong= post.user.email if post.user
+
+:javascript
+  $(document).ready(function(){
+    $('#playsound').on('click', function (e) {
+    e.preventDefault();
+    $('#sound_effect').currentTime = 0;
+    $('#sound_effect').play();
+    return false;
+  });
+  })
