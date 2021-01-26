@@ -32,7 +32,6 @@ gem 'haml'
 gem 'haml-rails'
 gem 'discard'
 gem 'kaminari'
-gem 'ransack'
 gem "jquery-ui-rails"
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.4.1'
