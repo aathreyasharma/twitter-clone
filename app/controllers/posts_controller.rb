@@ -50,6 +50,7 @@ class PostsController < ApplicationController
   end
 
   def my_posts
+    # binding.pry
     @posts = current_user.posts.order(created_at: :desc, status: :asc)
   end
 

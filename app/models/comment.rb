@@ -2,6 +2,7 @@ class Comment < Post
   include Discard::Model
   self.discard_column = :deleted_at
   default_scope -> { kept }
+  acts_as_favoritable
 
   belongs_to :post, foreign_key: :parent_id
   belongs_to :user

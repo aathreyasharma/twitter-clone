@@ -1,5 +1,17 @@
-.row.comment
+.row.comment.my-3.p-3
   .col-sm-12
-    = object.body
+    %p
+      = object.user.email
+    .float-right
+      %span.likes-count
+        = object.favoritors.count.positive? ? object.favoritors.count : nil
+      - unless object.favorited_by?(current_user)
+        = link_to like_comment_likes_path(object.id), remote: true do
+          %i.fa.fa-thumbs-up.fa-fa-2x
+      - else
+        = link_to unlike_comment_likes_path(object.id), remote: true do
+          %i.fa.fa-thumbs-up.fa-fa-2x.liked
+    %p
+      = object.body
     - if object.media.attached?
       = render 'shared/render_media', object: object

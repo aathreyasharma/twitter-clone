@@ -14,6 +14,19 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :likes, only: [] do
+    collection do
+      scope '/:post_id' do
+        get :like_post
+        get :unlike_post
+      end
+      scope '/:comment_id' do
+        get :like_comment
+        get :unlike_comment
+      end
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root "home#root"

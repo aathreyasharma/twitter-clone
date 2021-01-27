@@ -5,9 +5,15 @@ class CommentsController < ApplicationController
     comment = @post.comments.build(params[:comment].to_enum.to_h)
     comment.user = current_user
     if comment.save
-      redirect_to request.referer, notice: 'Commented!'
+      respond_to do |format|
+        format.html { redirect_to request.referer, notice: 'Commented!' }
+        format.js { render inline: "location.reload();", notice: 'Commented!' }
+      end
     else
-      redirect_to request.referer, notice: 'Unable to comment :('
+      respond_to do |format|
+        format.html { redirect_to request.referer, notice: 'Unable to comment :(' }
+        format.js { render inline: "location.reload();", notice: 'Unable to comment :(' }
+      end
     end
   end
 
