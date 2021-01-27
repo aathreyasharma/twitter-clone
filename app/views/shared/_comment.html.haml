@@ -1,0 +1,8 @@
+.row
+  .col-md-4
+    = form_with(model: Comment.new, url: add_comment_comments_path(post_id: object), local: true) do |f|
+      = f.text_area :body, placeholder: "Add a comment...", class: "form-control", cols: "30", rows: "1"
+      = f.label :media, 'Browse', class: 'btn btn-default'
+      = f.file_field :media, type: 'file', hidden: true, accept: ".jpg, .mp3, .wav, .gif, .mp4, .mpeg"
+      %br
+      = f.submit 'Comment', class: "btn btn-primary float-right"

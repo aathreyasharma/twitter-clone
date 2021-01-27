@@ -1,0 +1,5 @@
+.row.comment
+  .col-sm-12
+    = object.body
+    - if object.media.attached?
+      = render 'shared/render_media', object: object

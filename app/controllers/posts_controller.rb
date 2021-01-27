@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy publish]
+  before_action :set_post, only: %i[ show edit update destroy publish ]
 
   def index
     @posts = Post.where(status: :published)
@@ -60,7 +60,6 @@ class PostsController < ApplicationController
       redirect_to my_posts_posts_path, status: :unprocessable_entity
     end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
