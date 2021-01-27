@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy publish]
 
   def index
-    @posts = Post.where(deleted_at: nil)
+    @posts = Post.where(status: :published)
   end
 
   def show
@@ -16,7 +16,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    binding.pry
     @post = current_user.posts.new(post_params)
 
     respond_to do |format|
@@ -54,10 +53,19 @@ class PostsController < ApplicationController
     @posts = current_user.posts.order(created_at: :desc, status: :asc)
   end
 
+  def publish
+    if @post.published!
+      redirect_to my_posts_posts_path, notice: "Post Published!"
+    else
+      redirect_to my_posts_posts_path, status: :unprocessable_entity
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.find(params[:id] || params[:post_id])
     end
 
     # Only allow a list of trusted parameters through.

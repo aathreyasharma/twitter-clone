@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :posts do
+    get :publish
     collection do
       get :my_posts
     end

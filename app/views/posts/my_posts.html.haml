@@ -1,0 +1,28 @@
+#pins.transitions-enabled
+  - @posts.each do |post|
+    .box{'data-link': post_path(post.id)}
+      .panel.panel-default
+        .panel-header
+          = post.status.humanize
+          - if post.draft?
+            .float-right
+              = link_to 'Publish', post_publish_path(post.id)
+        .panel-body
+          %blockquote= post.body
+          %br/
+          - if post.media.attached?
+            - content_type = post.media.attachment.content_type
+            .row
+              .col-md-4.media
+                - if content_type["audio"]
+                  %audio#sound_effect.audio_player{:controls => "true", :preload => "true"}
+                    %source{:src => rails_blob_path(post.media.attachment), type: content_type}
+                - elsif content_type["video"]
+                  %video{:controls => "true", :preload => "true", width: "320", height: "240"}
+                    %source{:src => rails_blob_path(post.media.attachment), type: content_type}
+                - elsif content_type["image"]
+                  %img{:src => rails_blob_path(post.media.attachment)}
+                - else
+                  = link_to post.media.attachment.filename.to_s, rails_blob_path(post.media.attachment)
+          .panel-footer
+    %hr/
