@@ -14,9 +14,10 @@
       - @post.comments.order(created_at: :desc).each do |comment|
         = render 'shared/render_comment', object: comment
 .options.mt-5
-  - if post.draft?
+  - if @post.draft? && @post.user == current_user
     = link_to 'Edit', edit_post_path(@post)
   \|
   = link_to 'Back', posts_path
   \|
-  = link_to 'Destroy', post_path, method: :delete, data: { confirm: 'Are you sure?' }
+  - if @post.user == current_user
+    = link_to 'Destroy', post_path, method: :delete, data: { confirm: 'Are you sure?' }
