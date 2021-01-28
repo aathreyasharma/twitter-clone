@@ -1,12 +1,14 @@
 #posts.transitions-enabled
-  - @posts.each do |post|
-    .row.mr-2
-      .col-sm-12
-        = link_to post_path(post) do
-          .post-box
-            .panel.panel-default
+  .row.mr-2
+    .col-sm-12
+      - @posts.each do |post|
+        .post-box.mt-3.mx-auto
+          .panel.panel-default
+            %span
               .panel-header
                 %strong= post.user.email
+                %span.ml-5
+                  = link_to 'Show', post_path(post)
                 .float-right
                   %span.likes-count
                     = post.favoritors.count.positive? ? post.favoritors.count : nil
@@ -18,17 +20,23 @@
                       %i.fa.fa-thumbs-up.fa-fa-2x.liked
                 %hr/
               .panel-body
-                %blockquote= post.body
-                %br/
-                - if post.media.attached?
-                  = render 'shared/render_media', object: post
-                .panel-footer.mt-2
+                .row
+                  .col-md-8
+                    %blockquote= post.body
+                  .col-md-4
+                    - if post.media.attached?
+                      = render 'shared/render_media', object: post
+                .panel-footer.mt-5
                   - if post.comments.present?
-                    %h4
+                    %h5
                       Comments
                     - post.comments.order(created_at: :desc).each do |comment|
                       = render 'shared/render_comment', object: comment
-            .new-comment
-              = render 'shared/comment', object: post
+          .new-comment
+            = render 'shared/comment', object: post
 
-          %hr
+        %hr
+  .mt-2
+    = page_entries_info @posts, entry_name: 'post'
+    .float-right.mr-4
+      = paginate @posts

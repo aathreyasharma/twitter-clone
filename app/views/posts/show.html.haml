@@ -1,6 +1,19 @@
 %p#notice= notice
-
-
+.row
+  .col-md-8
+    %blockquote= @post.body
+  .col-md-4
+    - if @post.media.attached?
+      = render 'shared/render_media', object: @post
+  - if @post.comments.present?
+    .row.ml-2
+      .col-md-6
+        %h5
+          Comments
+        - @post.comments.order(created_at: :desc).each do |comment|
+          = render 'shared/render_comment', object: comment
 = link_to 'Edit', edit_post_path(@post)
 \|
 = link_to 'Back', posts_path
+\|
+= link_to 'Destroy', post_path, method: :delete, data: { confirm: 'Are you sure?' }

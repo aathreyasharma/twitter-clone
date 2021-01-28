@@ -7,7 +7,7 @@
           %audio{:controls => "true", :preload => "true"}
             %source{:src => rails_blob_path(object.media.attachment), type: content_type}
         - elsif content_type["video"]
-          %video{:controls => "true", :preload => "true", width: "320", height: "240"}
+          %video{:controls => "true", :preload => "true", 'max-width': "320", 'max-height': "240"}
             %source{:src => rails_blob_path(object.media.attachment), type: content_type}
         - elsif content_type["image"]
           %img{:src => rails_blob_path(object.media.attachment)}

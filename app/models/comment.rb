@@ -1,7 +1,8 @@
 class Comment < Post
   include Discard::Model
   self.discard_column = :deleted_at
-  default_scope -> { kept }
+  self.default_scopes = []
+  default_scope -> { where(deleted_at: nil) }
   acts_as_favoritable
 
   belongs_to :post, foreign_key: :parent_id

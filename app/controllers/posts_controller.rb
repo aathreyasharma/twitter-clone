@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy publish ]
 
   def index
-    @posts = Post.where(status: :published)
+    @posts = Post.published.page(params[:page]).per(10)
   end
 
   def show
@@ -50,7 +50,6 @@ class PostsController < ApplicationController
   end
 
   def my_posts
-    # binding.pry
     @posts = current_user.posts.order(created_at: :desc, status: :asc)
   end
 
