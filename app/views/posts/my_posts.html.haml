@@ -10,11 +10,11 @@
               %smap.status
                 Status:
                 = post.status.humanize
-              %span.float-right
+              %span.float-right.d-flex
+                - if post.draft?
+                  .mr-2
+                    = link_to 'Publish', post_publish_path(post.id)
                 = link_to 'Show', post_path(post)
-              - if post.draft?
-                .float-right
-                  = link_to 'Publish', post_publish_path(post.id)
             .panel-body.mt-4
               %blockquote= post.body
               %br/
