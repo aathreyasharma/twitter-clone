@@ -6,7 +6,8 @@ class Post < ApplicationRecord
 
   has_one_attached :media
   belongs_to :user
-  has_many :comments, foreign_key: :parent_id
+  has_many :comments, foreign_key: :parent_id, dependent: :destroy
+  # has_many :favorites, as: :favoritable
 
   scope :published, -> { where(status: :published) }
   scope :drafted, -> { where(status: :draft) }

@@ -50,7 +50,7 @@ class PostsController < ApplicationController
   end
 
   def my_posts
-    @posts = current_user.posts.order(created_at: :desc, status: :asc)
+    @posts = current_user.posts.order(created_at: :desc, status: :asc).page(params[:page]).per(10)
   end
 
   def publish

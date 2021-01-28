@@ -1,15 +1,16 @@
 .row
-  .col-sm-6
+  .col-sm-12
     - content_type = object.media.attachment.content_type
-    .row
-      .col-md-4.media
-        - if content_type["audio"]
-          %audio{:controls => "true", :preload => "true"}
+    .media
+      - if content_type["audio"]
+        %audio{:controls => "true", :preload => "true"}
+          %source{:src => rails_blob_path(object.media.attachment), type: content_type}
+      - elsif content_type["video"]
+        .video
+          %video{:controls => "true", :preload => "true"}
             %source{:src => rails_blob_path(object.media.attachment), type: content_type}
-        - elsif content_type["video"]
-          %video{:controls => "true", :preload => "true", 'max-width': "320", 'max-height': "240"}
-            %source{:src => rails_blob_path(object.media.attachment), type: content_type}
-        - elsif content_type["image"]
+      - elsif content_type["image"]
+        .image
           %img{:src => rails_blob_path(object.media.attachment)}
-        - else
-          = link_to object.media.attachment.filename.to_s, rails_blob_path(object.media.attachment), class: 'test'
+      - else
+        = link_to object.media.attachment.filename.to_s, rails_blob_path(object.media.attachment), class: 'test'

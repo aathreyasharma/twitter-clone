@@ -1,5 +1,5 @@
 .row
-  .col-md-4
+  .col-md-8
     = form_with(model: Comment.new, url: add_comment_comments_path(post_id: object), remote: true, format: :js) do |f|
       = f.text_area :body, placeholder: "Add a comment...", class: "form-control", cols: "30", rows: "1"
       = f.label :media, 'Browse', class: 'btn btn-default'

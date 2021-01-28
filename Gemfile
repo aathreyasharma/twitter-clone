@@ -38,6 +38,7 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'bootstrap-sass'
 gem 'aws-sdk-s3'
 gem 'acts_as_favoritor'
+gem 'store_base_sti_class'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

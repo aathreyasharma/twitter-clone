@@ -74,3 +74,13 @@ img {
 .liked {
   color: $like-blue;
 }
+
+video {
+  max-width: 100%;
+  max-height: auto;
+}
+
+.comments {
+  max-height: 80vh;
+  overflow-y: auto;
+}

@@ -21,9 +21,8 @@
                 %hr/
               .panel-body
                 .row
-                  .col-md-8
+                  .col-md-12
                     %blockquote= post.body
-                  .col-md-4
                     - if post.media.attached?
                       = render 'shared/render_media', object: post
                 .panel-footer.mt-5

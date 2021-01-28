@@ -13,12 +13,13 @@ class LikesController < ApplicationController
   end
 
   def like_comment
-    current_user.favorite(@comment)
+    fav = Favorite.create(favoritable: @comment, favoritor: current_user)
     go_back
   end
 
   def unlike_comment
-    current_user.unfavorite(@comment)
+    fav = Favorite.where(favoritable: @comment, favoritor: current_user).first
+    fav.delete
     go_back
   end
 
