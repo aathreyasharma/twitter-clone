@@ -42,9 +42,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post.destroy
+    @post.discard
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+      format.html { redirect_to posts_url, notice: "Post was successfully discarded." }
       format.json { head :no_content }
     end
   end
