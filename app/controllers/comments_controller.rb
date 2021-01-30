@@ -11,11 +11,25 @@ class CommentsController < ApplicationController
     end
   end
 
+  def update_comment
+    comment = Comment.find(comment_params[:id])
+    comment.update(comment_params)
+    respond_to do |format|
+      format.html { redirect_to request.referer, notice: 'Comment updated!' }
+      format.js# { render notice: 'Comment updated!' }
+    end
+  end
+
+
 
   private
 
   def set_post
     @post = Post.find(params[:post_id])
+  end
+
+  def comment_params
+    params.require(:comment).permit(:id, :body, :media, :user_id)
   end
 
 end

@@ -30,8 +30,11 @@
                     %h5
                       Comments
                     - post.comments.order(created_at: :desc).each do |comment|
-                      = render 'shared/render_comment', object: comment
-          .new-comment
+                      .comment{id: "comment_show_#{comment.id}", 'data-post-id': post.id}
+                        = render 'shared/render_comment', object: comment
+                      .edit_comment{id: "comment_edit_#{comment.id}", 'data-post-id': post.id}
+                        = render 'shared/edit_comment', object: comment
+          .new-comment{id: "new_comment_#{post.id}"}
             = render 'shared/comment', object: post
 
         %hr
@@ -39,3 +42,16 @@
     = page_entries_info @posts, entry_name: 'post'
     .float-right.mr-4
       = paginate @posts
+
+:javascript
+  $(document).ready(function(){
+    $('.edit_comment').prop('hidden', true)
+    $('.comment_edit_button').on('click', function(){
+      comment_id = $(this).attr('data-id');
+      post_id = $(this).attr('data-post-id');
+      console.log(post_id)
+      $("#comment_edit_" + comment_id).prop('hidden', false)
+      $("#comment_show_" + comment_id).prop('hidden', true)
+      $('#new_comment_' + post_id).prop('hidden', true)
+    })
+  })

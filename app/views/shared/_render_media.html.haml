@@ -13,4 +13,4 @@
         .image
           %img{:src => rails_blob_path(object.media.attachment)}
       - else
-        = link_to object.media.attachment.filename.to_s, rails_blob_path(object.media.attachment), class: 'test'
+        = link_to object.media.attachment.filename.to_s, rails_blob_path(object.media.attachment)

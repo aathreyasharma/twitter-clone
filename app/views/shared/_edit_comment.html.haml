@@ -1,0 +1,12 @@
+.row
+  .col-md-8
+    = form_with(model: Comment.find(object.id), url: update_comment_comments_path(post_id: object), remote: true, format: :js) do |f|
+      = f.hidden_field :id, valu: object.id
+      = f.text_area :body, placeholder: "Add a comment...", class: "form-control", cols: "30", rows: "1"
+      .row.mt-2
+        .col-sm-12
+          = f.file_field :media, type: 'file', hidden: false, accept: ".jpg, .mp3, .wav, .gif, .mp4, .mpeg", placeholder: 'test'
+          - if object.media.attached?
+            = link_to object.media.attachment.filename.to_s, rails_blob_path(object.media.attachment)
+          %br
+          = f.submit 'Comment', class: "btn btn-primary btn-sm float-right mt-n25"

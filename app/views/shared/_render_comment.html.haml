@@ -3,6 +3,8 @@
     %p
       = object.user.email
     .float-right
+      %button.btn.btn-secondary.btn-sm.comment_edit_button{'data-id': object.id, 'data-post-id': object.parent_id}
+        Edit
       %span.likes-count
         = object.favoritors.count.positive? ? object.favoritors.count : nil
       - unless object.favorited_by?(current_user)

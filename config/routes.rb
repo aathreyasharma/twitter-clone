@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     collection do
       scope '/:post_id' do
         post :add_comment
+        patch :update_comment
       end
     end
   end
