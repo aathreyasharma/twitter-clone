@@ -2,7 +2,9 @@
   .col-md-8
     = form_with(model: Comment.new, url: add_comment_comments_path(post_id: object), remote: true, format: :js) do |f|
       = f.text_area :body, placeholder: "Add a comment...", class: "form-control", cols: "30", rows: "1"
-      = f.label :media, 'Browse', class: 'btn btn-default'
-      = f.file_field :media, type: 'file', hidden: true, accept: ".jpg, .mp3, .wav, .gif, .mp4, .mpeg"
-      %br
-      = f.submit 'Comment', class: "btn btn-primary btn-sm float-right mt-n40"
+      .row.mt-2
+        .col-sm-12
+          = f.label :media, 'Browse', class: "btn btn-primary btn-sm"
+          = f.file_field :media, type: 'file', hidden: true, accept: ".jpg, .mp3, .wav, .gif, .mp4, .mpeg"
+          %br
+          = f.submit 'Comment', class: "btn btn-primary btn-sm float-right mt-n40"
