@@ -6,14 +6,9 @@
       - if object.user == current_user
         %button.btn.btn-secondary.btn-sm.comment_edit_button{'data-id': object.id, 'data-post-id': object.parent_id}
           Edit
-      %span.likes-count
+      %span.likes-count{id: "comment_#{object.id}"}
         = object.favoritors.count.positive? ? object.favoritors.count : nil
-      - unless object.favorited_by?(current_user)
-        = link_to like_comment_likes_path(object.id), remote: true do
-          %i.fa.fa-thumbs-up.fa-fa-2x
-      - else
-        = link_to unlike_comment_likes_path(object.id), remote: true do
-          %i.fa.fa-thumbs-up.fa-fa-2x.liked
+      %i.fa.fa-thumbs-up.fa-fa-2x.cursor-pointer{class: "#{'liked' if object.favorited_by?(current_user)}", 'data-object-type': object.class.name, 'data-object-id': object.id, id: "thumb_#{object.class.name.downcase}_#{object.id}"}
     %p
       = object.body
     - if object.media.attached?

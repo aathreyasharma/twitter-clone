@@ -10,14 +10,9 @@
                 %span.ml-5
                   = link_to 'Show', post_path(post)
                 .float-right
-                  %span.likes-count
+                  %span.likes-count{id: "post_#{post.id}"}
                     = post.favoritors.count.positive? ? post.favoritors.count : nil
-                  - unless post.favorited_by?(current_user)
-                    = link_to like_post_likes_path(post.id), remote: true do
-                      %i.fa.fa-thumbs-up.fa-fa-2x
-                  - else
-                    = link_to unlike_post_likes_path(post.id), remote: true do
-                      %i.fa.fa-thumbs-up.fa-fa-2x.liked
+                  %i.fa.fa-thumbs-up.fa-fa-2x.cursor-pointer{class: "#{'liked' if post.favorited_by?(current_user)}", 'data-object-type': post.class.name, 'data-object-id': post.id, id: "thumb_#{post.class.name.downcase}_#{post.id}"}
                 %hr/
               .panel-body
                 .row
